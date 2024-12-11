@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Smart Fix - Sistema de Chamados</title>
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+            rel="stylesheet"
+        />
+        <link id="theme-style" rel="stylesheet" href="../../style.css" />
+        <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet"
+        />
+        <script src="../../Components/scriptSideBar.js" defer></script>
+        <script src="scriptEditCalls.js" defer></script>
+    </head>
+
+    <body>
+        <div class="container">
+            <!--LeonardoSarruf - 02/11/2024 - Carrega sidebar.html via script.js -->
+            <div id="sidebar-container"></div>
+            <!--FIM - LeonardoSarruf - 02/11/2024 - Carrega sidebar.html via script.js -->
+
+            <!-- Main Content -->
+            <div class="main-content" id="mainContent">
+                <!-- Header -->
+
+                <div style="display: none" id="loading-screen">
+                    <div class="spinner"></div>
+                    <p>Carregando...</p>
+                </div>
+
+                <div class="header">
+                    <h1>Atualizar chamados</h1>
+                </div>
+
+                <div class="form-alert-success" style="display: none">
+                    <span
+                        class="closebtn"
+                        onclick="this.parentElement.style.display='none';"
+                        >&times;</span
+                    >
+                    Dados Inseridos com Sucesso!
+                </div>
+
+                <div class="form-alert" style="display: none">
+                    <span
+                        class="closebtn"
+                        onclick="this.parentElement.style.display='none';"
+                        >&times;</span
+                    >
+                    Verifique os Campos em Destaque!
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="ID">Nº Chamado</label>
+                        <input class="campos" type="number" id="cha_id" />
+                    </div>
+
+                    <div class="form-group div_campos">
+                        <label for="classificacao">Classificação</label>
+                        <select
+                            class="campos"
+                            name="classificacao"
+                            id="classificacao"
+                        >
+                            <option value=""></option>
+                        </select>
+                    </div>
+
+                    <div class="form-group div_campos">
+                        <label for="departamento">Localização</label>
+                        <select
+                            name="bloco"
+                            id="bloco"
+                            class="campos"
+                            onchange="populateSalaDropdown(this.value)"
+                        >
+                            <option value=""></option>
+                        </select>
+                    </div>
+
+                    <div class="form-group div_campos">
+                        <label for="departamento">Sala</label>
+                        <select
+                            class="campos"
+                            name="sala"
+                            id="sala"
+                            onchange="populateMaquinaDropdown(this.value)"
+                        >
+                            <option value=""></option>
+                        </select>
+                    </div>
+
+                    <div class="form-group div_campos">
+                        <label for="departamento">Máquina</label>
+                        <select
+                            class="campos"
+                            name="maquina"
+                            id="maquina"
+                            disabled
+                        >
+                            <option value=""></option>
+                        </select>
+                    </div>
+
+                    <div class="form-group div_campos">
+                        <label for="departamento">Item</label>
+                        <select class="campos" name="item" id="item">
+                            <option value=""></option>
+                        </select>
+                    </div>
+
+                    <div class="form-group div_campos">
+                        <label for="dtfinal">Data de Abertura</label>
+                        <input class="campos" type="date" id="dtinicio" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dtinicio">Data de Finalização</label>
+                        <input class="campos" type="date" id="dtfinal" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="situacao">Situação</label>
+                        <select
+                            class="campos"
+                            name="situacao"
+                            id="situacao"
+                            onchange="onSituationChange(this.value)"
+                        >
+                            <option value="">Selecione a situação</option>
+                            <option value="Em Andamento">Em Andamento</option>
+                            <option value="Finalizado">Finalizado</option>
+                        </select>
+                    </div>
+
+                    <div style="display: none" class="form-group" id="notes">
+                        <label for="notes">Notas</label>
+                        <input class="campos" type="text" id="cha_notes" />
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="serch-save-clear-group">
+                        <button type="button" class="btn" id="btnBuscar">
+                            <i class="fas fa-search"></i> Buscar
+                        </button>
+                        <button type="button" class="btn" id="btnLimpar">
+                            <i class="fas fa-eraser"></i> Limpar Pesquisa
+                        </button>
+                        <button
+                            style="display: none"
+                            type="button"
+                            class="btn"
+                            id="btnAtualizar"
+                        >
+                            <i
+                                class="material-icons"
+                                style="vertical-align: middle"
+                                >sync</i
+                            >
+                            Atualizar Chamado
+                        </button>
+                        <button
+                            style="display: none"
+                            type="button"
+                            class="btn"
+                            id="btnVoltar"
+                        >
+                            <i
+                                class="material-icons"
+                                style="vertical-align: middle"
+                                >keyboard_return</i
+                            >
+                            Voltar a Consulta
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tabela de Chamados -->
+                <div class="table-container">
+                    <h2 style="margin-bottom: 1rem">Chamados</h2>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Dt.Abertura</th>
+                                <th>Classificação</th>
+                                <th>Assunto</th>
+                                <th>Item</th>
+                                <th>Maquina</th>
+                                <th>Sala</th>
+                                <th>Localização</th>
+                                <th>Situação</th>
+                                <th>Dt.Finalização</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ******************************************************************************************** -->
+        <!-- script de ação - menu lateral/Sidebar -->
+
+        <script>
+            document
+                .getElementById("sidebar")
+                .addEventListener("click", function () {
+                    this.classList.toggle("collapsed");
+                    document
+                        .getElementById("mainContent")
+                        .classList.toggle("expanded");
+                });
+        </script>
+    </body>
+</html>

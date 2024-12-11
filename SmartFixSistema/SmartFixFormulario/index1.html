@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Abertura de Chamados</title>
+        <link rel="stylesheet" type="text/css" href="style1.css" />
+        <script src="./backEnd.js"></script>
+        <script>
+            window.onload = function () {
+                populateclassDdlDropdown();
+                populateBlNomeDropdown();
+                populateItmNomeDropdown();
+                populateSalaDropdown();
+                cadastrarChamado();
+            };
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <img src="Midia.png" alt="Logo" width="200" />
+                <h2>Sistema de Chamados</h2>
+            </div>
+
+            <form
+                action="connectionStringDB.php"
+                method="POST"
+                onsubmit=" return validarFormulario()"
+            >
+                <div class="form-group">
+                    <label for="titulo">Título do problema</label>
+                    <input
+                        type="text"
+                        id="titulo"
+                        maxlength="50"
+                        placeholder="Digite o principal problema"
+                        name="titulo"
+                        required
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="titulo">Classificação</label>
+                    <select
+                        style="
+                            padding: 8px;
+                            width: 100%;
+                            box-sizing: border-box;
+                            border: 1px solid hsl(188, 17%, 74%);
+                            border-radius: 5px;
+                            border: 1px solid #b0c4c7;
+                        "
+                        id="class_Ddl"
+                        name="class_Ddl"
+                        required
+                    >
+                        <option value=""></option>
+                        <!-- Opção padrão -->
+                    </select>
+                    <script>
+                        // Função para preencher o dropdown com os dados do PHP/MySQL
+                        function populateclassDdlDropdown() {
+                            // Faz uma requisição ao PHP
+                            fetch("DDL_class.php")
+                                .then((response) => response.json()) // Converte a resposta para JSON
+                                .then((data) => {
+                                    debugger;
+                                    // Seleciona o elemento dropdown
+                                    let dropdown =
+                                        document.getElementById("class_Ddl");
+
+                                    // Limpa o dropdown
+                                    dropdown.innerHTML =
+                                        '<option value="" style="color: #B0C4C7;">Selecione uma classificação</option>';
+
+                                    // Itera sobre os dados retornados
+                                    data.forEach((item) => {
+                                        // Cria uma nova opção
+                                        let option =
+                                            document.createElement("option");
+                                        option.value = item.cla_id; // Define o valor do option
+                                        option.text = item.cla_nome; // Define o texto a ser exibido
+
+                                        // Adiciona a opção ao dropdown
+                                        dropdown.appendChild(option);
+                                    });
+                                })
+                                .catch((error) =>
+                                    console.error("Erro:", error)
+                                );
+                        }
+
+                        // Chama a função quando a página é carregada
+                        window.onload = populateDropdown;
+                    </script>
+                </div>
+
+                <div class="form-group">
+                    <label for="titulo">Item</label>
+                    <select
+                        style="
+                            padding: 8px;
+                            width: 100%;
+                            box-sizing: border-box;
+                            border: 1px solid hsl(188, 17%, 74%);
+                            border-radius: 5px;
+                            border: 1px solid #b0c4c7;
+                        "
+                        id="itm_nomeDdl"
+                        name="itm_nomeDdl"
+                        required
+                    >
+                        <option value=""></option>
+                        <!-- Opção padrão -->
+                    </select>
+
+                    <script>
+                        // Função para preencher o dropdown com os dados do PHP/MySQL
+                        function populateItmNomeDropdown() {
+                            // Faz uma requisição ao PHP
+                            fetch("DDL_itm.php")
+                                .then((response) => response.json()) // Converte a resposta para JSON
+                                .then((data) => {
+                                    // Seleciona o elemento dropdown
+                                    let dropdown =
+                                        document.getElementById("itm_nomeDdl");
+
+                                    // Limpa o dropdown
+                                    dropdown.innerHTML =
+                                        '<option value="">Selecione um item</option>';
+
+                                    // Itera sobre os dados retornados
+                                    data.forEach((item) => {
+                                        // Cria uma nova opção
+                                        let option =
+                                            document.createElement("option");
+                                        option.value = item.itm_id; // Define o valor do option
+                                        option.text = item.itm_nome; // Define o texto a ser exibido
+
+                                        // Adiciona a opção ao dropdown
+                                        dropdown.appendChild(option);
+                                    });
+                                })
+                                .catch((error) =>
+                                    console.error("Erro:", error)
+                                );
+                        }
+
+                        // Chama a função quando a página é carregada
+                        window.onload = populateDropdown;
+                    </script>
+                </div>
+
+                <div class="form-group">
+                    <label for="titulo">Localização</label>
+                    <select
+                        style="
+                            padding: 8px;
+                            width: 100%;
+                            box-sizing: border-box;
+                            border: 1px solid hsl(188, 17%, 74%);
+                            border-radius: 5px;
+                            border: 1px solid #b0c4c7;
+                        "
+                        id="bl_nomeDdl"
+                        name="bl_nomeDdl"
+                        onchange="populateSalaDropdown(this.value)"
+                        required
+                    >
+                        <option value=""></option>
+                        <!-- Opção padrão -->
+                    </select>
+
+                    <script>
+                        // Função para preencher o dropdown com os dados do PHP/MySQL
+                        function populateBlNomeDropdown() {
+                            // Faz uma requisição ao PHP
+                            fetch("DDL_bl.php")
+                                .then((response) => response.json()) // Converte a resposta para JSON
+                                .then((data) => {
+                                    debugger;
+                                    // Seleciona o elemento dropdown
+                                    let dropdown =
+                                        document.getElementById("bl_nomeDdl");
+
+                                    // Limpa o dropdown
+                                    dropdown.innerHTML =
+                                        '<option value="">Selecione um bloco</option>';
+
+                                    // Itera sobre os dados retornados
+                                    data.forEach((item) => {
+                                        // Cria uma nova opção
+                                        let option =
+                                            document.createElement("option");
+                                        option.value = item.bl_id; // Define o valor do option
+                                        option.text = item.bl_nome; // Define o texto a ser exibido
+
+                                        // Adiciona a opção ao dropdown
+                                        dropdown.appendChild(option);
+                                    });
+                                })
+                                .catch((error) =>
+                                    console.error("Erro:", error)
+                                );
+                        }
+
+                        // Chama a função quando a página é carregada
+                        window.onload = populateDropdown;
+                    </script>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="titulo">Sala</label>
+                        <select
+                            style="
+                                padding: 8px;
+                                width: 100%;
+                                box-sizing: border-box;
+                                border: 1px solid hsl(188, 17%, 74%);
+                                border-radius: 5px;
+                                border: 1px solid #b0c4c7;
+                            "
+                            id="sala_Ddl"
+                            name="sala_Ddl"
+                            onchange="populateMaqDropdown(this.value)"
+                            disabled
+                            required
+                        >
+                            <option value=""></option>
+                            <!-- Opção padrão -->
+                        </select>
+
+                        <script>
+                            // Função para preencher o dropdown com os dados do PHP/MySQL
+                            function populateSalaDropdown(bloco_id) {
+                                const dropdownSala =
+                                    document.getElementById("sala_Ddl");
+                                const dropdownMaquina =
+                                    document.getElementById("maq_Ddl");
+                                if (!bloco_id) {
+                                    document.getElementById(
+                                        "sala_Ddl"
+                                    ).innerHTML =
+                                        '<option value="">Selecione uma sala</option>';
+                                    dropdownSala.disabled = true;
+                                    dropdownMaquina.disabled = true;
+                                    dropdownSala.value = "";
+                                    dropdownMaquina.value = "";
+                                    return;
+                                }
+                                dropdownSala.disabled = false;
+                                fetch("DDL_sala.php", {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                    },
+                                    body: JSON.stringify({
+                                        bloco_id: bloco_id,
+                                    }),
+                                })
+                                    .then((response) => response.json())
+                                    .then((data) => {
+                                        let dropdown =
+                                            document.getElementById("sala_Ddl");
+
+                                        // Itera sobre os dados retornados
+                                        data.forEach((item) => {
+                                            // Cria uma nova opção
+                                            let option =
+                                                document.createElement(
+                                                    "option"
+                                                );
+                                            option.value = item.sl_id; // Define o valor do option
+                                            option.text = item.sl_num; // Define o texto a ser exibido
+
+                                            // Adiciona a opção ao dropdown
+                                            dropdown.appendChild(option);
+                                        });
+                                    })
+                                    .catch((error) =>
+                                        console.error("Erro:", error)
+                                    );
+                            }
+
+                            function populateMaqDropdown(sala_id) {
+                                const dropdown =
+                                    document.getElementById("maq_Ddl");
+                                // Faz uma requisição ao PHP
+                                if (!sala_id) {
+                                    document.getElementById(
+                                        "maq_Ddl"
+                                    ).innerHTML =
+                                        '<option value="">Selecione uma máquina</option>';
+                                    dropdown.disabled = true;
+                                    return;
+                                }
+                                dropdown.disabled = false;
+                                fetch("DDL_maq.php", {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                    },
+                                    body: JSON.stringify({ sala_id: sala_id }),
+                                })
+                                    .then((response) => response.json())
+                                    .then((data) => {
+                                        let dropdown =
+                                            document.getElementById("maq_Ddl");
+
+                                        data.forEach((item) => {
+                                            let option =
+                                                document.createElement(
+                                                    "option"
+                                                );
+                                            option.value = item.maq_id;
+                                            option.text = item.maq_num;
+                                            dropdown.appendChild(option);
+                                        });
+                                    })
+                                    .catch((error) =>
+                                        console.error("Erro:", error)
+                                    );
+                            }
+
+                            // Chama a função quando a página é carregada
+                            window.onload = populateDropdown;
+                        </script>
+                    </div>
+                    <!-- <div class="form-group">
+                    <label for="bloco">Bloco</label>
+                    <input type="text" id="bloco" maxlength="3" name="bloco" required>
+                </div> -->
+                    <div class="form-group">
+                        <label for="titulo">Máquina</label>
+                        <select
+                            style="
+                                padding: 8px;
+                                width: 100%;
+                                box-sizing: border-box;
+                                border: 1px solid hsl(188, 17%, 74%);
+                                border-radius: 5px;
+                                border: 1px solid #b0c4c7;
+                            "
+                            id="maq_Ddl"
+                            name="maq_Ddl"
+                            disabled
+                            required
+                        >
+                            <option value="">Selecione uma máquina</option>
+                            <!-- Opção padrão -->
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input
+                        type="email"
+                        id="email"
+                        maxlength="50"
+                        placeholder="Digite seu E-mail"
+                        name="email"
+                        required
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="descricao">Descrição</label>
+                    <textarea
+                        id="descricao"
+                        maxlength="200"
+                        name="descricao"
+                        required
+                    ></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Enviar</button>
+
+                <div class="result">
+                    <p id="statusMessage"></p>
+                </div>
+            </form>
+        </div>
+
+        <!-- ******************************************************************************************** -->
+        <script>
+            const urlParams = new URLSearchParams(window.location.search);
+            const status = urlParams.get("status");
+
+            // Se o parâmetro 'status' for encontrado e igual a "incluido", exibe a mensagem
+            if (status === "incluido") {
+                document.getElementById("statusMessage").textContent =
+                    "Chamado cadastrado com sucesso!";
+            }
+        </script>
+        <!-- ******************************************************************************************** -->
+    </body>
+</html>

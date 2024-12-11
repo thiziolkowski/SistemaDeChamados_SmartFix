@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Smart Fix - Sistema de Chamados</title>
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+            rel="stylesheet"
+            *-
+        />
+        <link id="theme-style" rel="stylesheet" href="../../style.css" />
+        <!--LeonardoSarruf - 02/11/2024 - Carrega script.js -->
+        <script src="../../Components/scriptSideBar.js" defer></script>
+        <!--FIM - LeonardoSarruf - 02/11/2024 - Carrega script.js -->
+        <script src="scriptHelp.js" defer></script>
+
+        <!-- Estilos básicos para melhorar a aparência -->
+        <style>
+            .main-content {
+                margin-left: 250px;
+                padding: 20px;
+                font-family: "Franklin Gothic Medium", "Arial Narrow", Arial,
+                    sans-serif;
+                font-size: large;
+            }
+
+            .ManualUsuario {
+                margin-top: 20px;
+            }
+
+            p {
+                margin-top: 20px;
+                margin-left: 20px;
+                line-height: 30px;
+            }
+
+            h1,
+            h2 {
+                font-size: 24px;
+            }
+
+            /* h2 {
+        color: #333;
+        padding-bottom: 10px;
+        margin-top: 40px;
+        border-bottom: 2px solid #ff6600;
+    } */
+
+            ul {
+                list-style: none;
+            }
+
+            li {
+                margin: 20px 0;
+                padding-top: 10px;
+                padding-left: 20px;
+            }
+
+            li a {
+                text-decoration: none;
+                color: #ff6600;
+                font-size: 18px;
+            }
+
+            li a:hover {
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!--LeonardoSarruf - 02/11/2024 - Carrega sidebar.html via script.js -->
+        <div id="sidebar-container"></div>
+        <!--FIM - LeonardoSarruf - 02/11/2024 - Carrega sidebar.html via script.js -->
+
+        <!-- Main Content -->
+        <div class="main-content" id="mainContent">
+            <!-- Header -->
+            <div class="header">
+                <h1>Suporte ao usuário - Manual do Sistema</h1>
+            </div>
+
+            <!-- Manual do usuário -->
+            <div class="ManualUsuario">
+                <h2 id="0-indice">Índice</h2>
+                <ul>
+                    <li>
+                        <a href="#1-Introducao" aria-label="Ir para Introdução"
+                            >1. Introdução</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#2-Requisitos"
+                            aria-label="Ir para Requisitos de Sistema"
+                            >2. Requisitos de Sistema</a
+                        >
+                    </li>
+                    <li>
+                        <a href="#3-Login" aria-label="Ir para Login no Sistema"
+                            >3. Login no Sistema</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#4-Interface"
+                            aria-label="Ir para Interface Principal"
+                            >4. Interface Principal</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#5-Funcionalidades"
+                            aria-label="Ir para Funcionalidades"
+                            >5. Funcionalidades</a
+                        >
+                    </li>
+                    <li>
+                        <a href="#6-ModoEscuro" aria-label="Ir para Modo Escuro"
+                            >6. Modo Escuro</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#7-Suporte"
+                            aria-label="Ir para Suporte Técnico"
+                            >7. Suporte Técnico</a
+                        >
+                    </li>
+                </ul>
+
+                <!-- ----------------------------------------------------------------------------------- -->
+                <h2 id="1-Introducao">1.Introdução</h2>
+                <p>
+                    Este manual tem como objetivo auxiliar administradores na
+                    utilização do sistema de gerenciamento de chamados. O
+                    sistema permite o gerenciamento de chamados, bem como o
+                    cadastramento de localizações, salas e máquinas para
+                    facilitar a organização e o atendimento.
+                </p>
+
+                <!-- ----------------------------------------------------------------------------------- -->
+                <h2 id="2-Requisitos">2.Requisitos de sistema</h2>
+
+                <ul>
+                    <li>
+                        Navegador atualizado (Google Chrome, Mozilla Firefox,
+                        Microsoft Edge).
+                    </li>
+                    <li>Conexão estável com a internet.</li>
+                    <li>Resolução de tela mínima: 1366x768.</li>
+                </ul>
+
+                <!-- ----------------------------------------------------------------------------------- -->
+                <h2 id="3-Login">3.Login no sistema</h2>
+                <p>
+                    Antes de acessar a interface principal do sistema, é
+                    necessário efetuar o login.
+                </p>
+
+                <p>Passo a passo para login:</p>
+
+                <ol>
+                    <li>Abra o navegador de sua preferência.</li>
+                    <li>Insira o endereço do sistema na barra de navegação.</li>
+                    <li>Na tela de login exibida:</li>
+                    <p>Digite seu usuário no campo correspondente.</p>
+                    <p>Digite sua senha no campo logo abaixo.</p>
+                    <li>
+                        Clique no botão Entrar localizado abaixo dos campos de
+                        entrada.
+                    </li>
+                    <li>
+                        Caso as credenciais estejam corretas, você será
+                        redirecionado para a tela de dashboard.
+                    </li>
+                    <p>
+                        <strong>Nota:</strong> Em caso de erro no login,
+                        verifique suas credenciais ou entre em contato com o
+                        suporte técnico.
+                    </p>
+                </ol>
+
+                <!-- ----------------------------------------------------------------------------------- -->
+                <h2 id="4-Interface">4.Interface Principal</h2>
+
+                <ul>
+                    <li><strong>Dashboard</strong></li>
+
+                    <p>
+                        Após o login, o administrador será direcionado ao painel
+                        principal, onde poderá visualizar:
+                    </p>
+
+                    <ul>
+                        <li>Resumo dos chamados.</li>
+                        <li>Chamados não atendidos.</li>
+                        <li>Chamados abertos por mês.</li>
+                        <li>Chamados por categoria.</li>
+                        <li>Chamados por itens.</li>
+                        <li>Media do atendimento dos chamados.</li>
+                    </ul>
+
+                    <!-- ----------------------------------------------------------------------------- -->
+                    <hr />
+                    <li><strong>Navbar</strong></li>
+
+                    <p>
+                        Localizada no canto inferior esquerdo, a navbar
+                        apresenta as seguintes opções:
+                    </p>
+
+                    <ol>
+                        <li>Home: Redireciona para a tela de dashboard.</li>
+                        <li>
+                            Consultar Chamados: Exibe a lista de chamados para
+                            visualização e consulta.
+                        </li>
+                        <li>Atualizar Chamado: (Futura implementação)..</li>
+                        <li>Cadastro:</li>
+                        <ul>
+                            <li>
+                                - Cadastro de Localização: Redireciona para a
+                                tela de cadastramento de localizações.
+                            </li>
+                            <li>
+                                - Cadastro de Sala: Redireciona para a tela de
+                                cadastramento de salas.
+                            </li>
+                            <li>
+                                - Cadastro de Máquina: Redireciona para a tela
+                                de cadastramento de máquinas.
+                            </li>
+                        </ul>
+                        <li>
+                            Modo Escuro: Ativa/desativa o modo escuro para uma
+                            interface mais confortável.
+                        </li>
+                    </ol>
+                </ul>
+
+                <!-- ----------------------------------------------------------------------------------- -->
+                <h2 id="5-Funcionalidades">5.Funcionalidades</h2>
+
+                <ul>
+                    <li><strong> Consultar chamados</strong></li>
+                    <p>
+                        Acesse esta funcionalidade para visualizar uma lista de
+                        chamados cadastrados.
+                    </p>
+
+                    <hr />
+                    <li><strong>Cadastro de Localização</strong></li>
+
+                    <ol>
+                        <li>
+                            Clique em Cadastro > Cadastro de Localização na
+                            navbar.
+                        </li>
+                        <li>
+                            Digite a localização desejada no campo superior.
+                        </li>
+                        <ul>
+                            <li>- Salvar: Salva a localização inserida.</li>
+                            <li>- Limpar: Limpa a lista exibida abaixo.</li>
+                            <li>
+                                - Buscar: Permite localizar uma localização
+                                específica.
+                            </li>
+                            <li>
+                                - Atualizar: Atualiza informações da localização
+                                selecionada.
+                            </li>
+                        </ul>
+
+                        <li>
+                            Para editar uma localização, clique no ID
+                            correspondente na lista exibida abaixo.
+                        </li>
+                    </ol>
+
+                    <hr />
+                    <li><strong>Cadastro de Sala</strong></li>
+
+                    <ol>
+                        <li>
+                            Clique em Cadastro > Cadastro de Sala na navbar.
+                        </li>
+                        <li>
+                            Insira a localização e a sala desejadas nos campos
+                            superiores.
+                        </li>
+                        <ul>
+                            <li>- Salvar: Salva a sala cadastrada.</li>
+                            <li>- Limpar: Limpa a lista exibida abaixo.</li>
+                            <li>
+                                - Buscar: Permite localizar uma sala específica.
+                            </li>
+                            <li>
+                                - Atualizar: Atualiza informações da sala
+                                selecionada.
+                            </li>
+                        </ul>
+
+                        <li>
+                            Para editar uma sala, clique no ID correspondente na
+                            lista exibida abaixo.
+                        </li>
+                    </ol>
+
+                    <hr />
+                    <li><strong>Cadastro de Máquina</strong></li>
+
+                    <ol>
+                        <li>
+                            Clique em Cadastro > Cadastro de Máquina na navbar.
+                        </li>
+                        <li>
+                            Insira a localização, a sala e a identificação da
+                            máquina nos campos superiores.
+                        </li>
+                        <ul>
+                            <li>- Salvar: Salva a máquina cadastrada.</li>
+                            <li>- Limpar: Limpa a lista exibida abaixo.</li>
+                            <li>
+                                - Buscar: Permite localizar uma máquina
+                                específica.
+                            </li>
+                            <li>
+                                - Atualizar: Atualiza informações da máquina
+                                selecionada.
+                            </li>
+                        </ul>
+
+                        <li>
+                            Para editar uma máquina, clique no ID correspondente
+                            na lista exibida abaixo.
+                        </li>
+                    </ol>
+
+                    <!-- ----------------------------------------------------------------------------------- -->
+                    <h2 id="6-ModoEscuro">6.Modo Escuro</h2>
+
+                    <p>Para ativar o modo escuro:</p>
+
+                    <ol>
+                        <li>
+                            Clique no botão Modo Escuro localizado na navbar.
+                        </li>
+                        <li>
+                            A interface mudará para tons mais escuros,
+                            proporcionando maior conforto visual.
+                        </li>
+                    </ol>
+                </ul>
+
+                <button
+                    style="
+                        margin-top: 10px;
+                        padding: 10px;
+                        background-color: #ff6600;
+                        border-radius: 10px;
+                    "
+                >
+                    <a
+                        style="text-decoration: none; color: #ffffff"
+                        href="#0-indice"
+                        aria-label="Ir para Índice"
+                        ><strong>Voltar ao topo</strong></a
+                    >
+                </button>
+            </div>
+        </div>
+    </body>
+</html>
